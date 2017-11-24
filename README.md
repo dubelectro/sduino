@@ -1,3 +1,5 @@
+## It is a fork for personal testing. Not stable.
+
 # Sduino: Small Devices Arduino
 
 **Getting started on the STM8 the easy way.**
