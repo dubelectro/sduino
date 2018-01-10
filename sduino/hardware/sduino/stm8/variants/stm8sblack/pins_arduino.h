@@ -29,8 +29,8 @@
 
 
 #define NUM_DIGITAL_PINS            25
-#define NUM_ANALOG_INPUTS           9
-#define analogInputToDigitalPin(p)  ((p < NUM_ANALOG_INPUTS) ? (p) + (NUM_DIGITAL_PINS-NUM_ANALOG_INPUTS) : -1)
+#define NUM_ANALOG_INPUTS           6
+#define analogInputToDigitalPin(p)  ((p)< 6) ? ((p) + 2) : (-1))
 
 
 /* on the STM8S the logical pin numbers are really confusing instead
@@ -38,41 +38,40 @@
  * instead?
  */
 enum portpin {
-	PA1, /* 1: OSC IN */
-	PA2, /* 2: OSC OUT */
-	PF4, /* 3: AIN12 */
-	PB5, /* 4: AIN5 / [I2C_SDA] */
-	PB4, /* 5: AIN4 / [I2C_SCL] */
-	PB3, /* 6: AIN3 / [TIM1_ETR] */
-	PB2, /* 7: AIN2 / [TIM2_CH3N] */
-	PB1, /* 8: AIN1 / [TIM1_CH2N] */
-	PB0, /* 9: AIN0 / [TIM1_CH1N] */
-	PE5, /* 10: SPI_NSS */
-	PC1, /* 11: TIM1_CH1 / UART2_CK */
-	PC2, /* 12: TIM1_CH2 */
-	PD7, /* 13: TLI / [TIM1_CH4] */
-	PD6, /* 14: UART2_RX */
-	PD5, /* 15: UART2_TX */
-	PD4, /* 16: TIM2_CH1 / [BEEP] */
-	PD3, /* 17: TIM2_CH2 / [ADC_ETR] */
-	PD2, /* 18: TIM3_CH1 / [TIM2_CH3] */
-	PD1, /* 19: SWIM */
-	PD0, /* 20: TIM3_CH2 / [TIM1_BKIN] / [CLK_CCO] */
-	PC7, /* 21: SPI_MISO */
-	PC6, /* 22: SPI_MOSI */
-	PC5, /* 23: SPI_SCK */
-	PC4, /* 24: TIM1_CH4 */
-	PC3, /* 25: TIM1_CH3 */
+	PA1, // 0
+	PA2, // 1
+	PF4, // 2
+	PB5, // 3
+	PB4, // 4
+	PB3, // 5
+	PB2, // 6
+	PB1, // 7
+	PB0, // 8
+	PE5, // 9
+	PC1, // 10
+	PC2, // 11
+	PC3, // 12
+	PC4, // 13
+	PC5, // 14
+	PC6, // 15
+	PC7, // 16
+	PD0, // 17
+	PD1, // 18
+	PD2, // 19
+	PD3, // 20
+	PD4, // 21
+	PD5, // 22
+	PD6, // 23
+	PD7, // 24
 };
 
 
 
-// PWM on pins 12-13,13,25-28
- // using alternate functions adds 3 more PWM pins, total of 7 PWM pins
- #define digitalPinHasPWM(p)	( ((p)>=6&(p)<=9) | ((p)>=11&(p)<=13) | ((p)>=16&(p)<=18) | (p)==20 | (p)==24 | (p)==25 |)
+// PWM on pins 10-13,17,19-22
+#define digitalPinHasPWM(p)	( ((p)>=10&(p)<=13) | (p)==17 | ((p)>=19&(p)<=22))
 
 
-#define PIN_SPI_SS    (PE5)	// 11
+#define PIN_SPI_SS    (PE5)	// 9
 #define PIN_SPI_MOSI  (PC6)	// 15
 #define PIN_SPI_MISO  (PC7)	// 16
 #define PIN_SPI_SCK   (PC5)	// 14
@@ -84,13 +83,13 @@ static const uint8_t MOSI = PIN_SPI_MOSI;
 static const uint8_t MISO = PIN_SPI_MISO;
 static const uint8_t SCK  = PIN_SPI_SCK;
 */
-#define SS	PIN_SPI_SS
-#define	MOSI	PIN_SPI_MOSI
-#define	MISO	PIN_SPI_MISO
-#define	SCK	PIN_SPI_SCK
+#define SS      PIN_SPI_SS
+#define	MOSI    PIN_SPI_MOSI
+#define	MISO    PIN_SPI_MISO
+#define	SCK     PIN_SPI_SCK
 
-#define PIN_WIRE_SDA        (PB5)	// 3
-#define PIN_WIRE_SCL        (PB4)	// 4
+#define PIN_WIRE_SDA    (PB5)	// 3
+#define PIN_WIRE_SCL    (PB4)	// 4
 
 /* SDCC workaround
 static const uint8_t SDA = PIN_WIRE_SDA;
@@ -105,12 +104,13 @@ static const uint8_t SCL = PIN_WIRE_SCL;
 
 #define LED_BUILTIN (PE5)	// pin for the buildin LED, pin 13
 
-#define PIN_A0   (PB5)		// 3, Ain5
-#define PIN_A1   (PB4)		// 4, Ain4
-#define PIN_A2   (PB3)		// 5, Ain3
-#define PIN_A3   (PB2)		// 6, Ain2
-#define PIN_A4   (PB1)		// 7, Ain1
-#define PIN_A5   (PB0)		// 8, Ain0
+#define PIN_A0   (PF4)		// 2, Ain12
+#define PIN_A1   (PB5)		// 3, Ain5
+#define PIN_A2   (PB4)		// 4, Ain4
+#define PIN_A3   (PB3)		// 5, Ain3
+#define PIN_A4   (PB2)		// 6, Ain2
+#define PIN_A5   (PB1)		// 7, Ain1
+#define PIN_A6   (PB0)		// 8, Ain0
 
 /* SDCC workaround
 static const uint8_t A0 = PIN_A0;
@@ -125,6 +125,7 @@ static const uint8_t A4 = PIN_A4;
 #define	A3	PIN_A3
 #define	A4	PIN_A4
 #define	A5	PIN_A5
+#define	A6	PIN_A6
 
 //#define NO_ANALOG	0xff
 
@@ -133,10 +134,7 @@ static const uint8_t A4 = PIN_A4;
 //
 // values 0..5: ADC channel number, no conversion
 // values 6..15: digital pin numbers, convert to ADC channel number
-#define analogPinToChannel(P) (	(P)>=4 ? 9-(P) : ( \
-								(P)==4 ? 12 : ( \
-								(P) \
-								)))
+#define analogPinToChannel(p)	(((p) <= 6) ? ((p) == 0 ? (12) : (6-(p))) : (-1))
 extern const uint8_t digitalPinToAnalogChannelMap[];
 
 /*FIXME
@@ -151,30 +149,25 @@ extern const uint8_t digitalPinToAnalogChannelMap[];
 #ifdef ARDUINO_MAIN
 
 // STM8S105K5 breakout board
-
-// STM8S103F3 breakout board
 //
-//                       +----+
-//                NRST  1|    |30  PD7 (D 24)  PWM+
-//           (D 1) PA1  2|    |29  PD6 (D 23)  RX
-//           (D 2) PA2  3|    |27  PD5 (D 22)  TX
-//                 PF4  4|    |27  PD4 (D 21)  PMW
-// SDA  (D 3,AI 0) PB5  5|    |26  PD3 (D 20)  PMW
-// SCL  (D 4,AI 1) PB4  6|    |25  PD2 (D 19)  PMW
-//      (D 5,AI 2) PB3  7|    |24  PD1 (D 18)
-// PMW+ (D 6,AI 3) PB2  8|    |23  PD0 (D 17)  PWM
-// PMW+ (D 7,AI 4) PB1  9|    |22  PC7 (D 16)  MISO
-// PMW+ (D 8,AI 5) PB0 10|    |21  PC6 (D 15)  MOSI
-// LED NSS   (D 9) PE5 11|    |20  PC5 (D 14)  SCK
-// PWM      (D 10) PC1 12|    |19  PC4 (D 13)  PMW
-// PWM      (D 11) PC2 13|    |18  PC3 (D 12)  PMW
-//                 3V3 14|    |17  5V
-//                 GND 15|    |16  GND
-//                       +-\/-+
+//                      +-/\-+
+//                GND 16|    |15 GND
+//                 5V 17|    |14 3V3
+//      PMW (D12) PC3 18|    |13 PC2  (D11) PMW
+//      PMW (D13) PC4 19|    |12 PC1  (D10) PMW
+//  SCK     (D14) PC5 20|    |11 PE5  (D9)      NSS
+// MOSI     (D15) PC6 21|    |10 PD0  (D8)  PMW
+// MISO     (D16) PC7 22|    |9  PB1  (D7)  PMW
+//      PMW (D17) PD0 23|    |8  PB2  (D6)  PMW
+//          (D18) PD1 24|    |7  PB3  (D5)
+//      PMW (D19) PD2 25|    |6  PB4  (D4)
+//      PMW (D20) PD3 26|    |5  PB5  (D3)
+//      PMW (D21) PD4 27|    |4  PF4  (D2)
+// TX       (D22) PD5 28|    |3  PA2  (D1)  SDL
+// RX       (D23) PD6 29|    |2  PA1  (D0)  SDA
+//      PMW (D24) PD7 30|    |1  NRST
+//                      +----+
 //
-// (PWM+ indicates the additional PWM pins on alternate
-// function pins)
-
 // these arrays map port names (e.g. port B) to the
 // appropriate addresses for various functions (e.g. reading
 // and writing)
@@ -227,31 +220,31 @@ const uint16_t PROGMEM port_to_input_PGM[] = {
 };
 
 const uint8_t PROGMEM digital_pin_to_port_PGM[] = {
-	PA,   /* 0 */
-	PA,
-	PF,   /* 2 */
-	PB,   /* 3 */
-	PB, 
-	PB,
-	PB,
-	PB,
-	PB,
-	PE,  /* 9 */
-	PC,  /* 10 */
-	PC,
-	PC,
-	PC,
-	PC,
-	PC,
-	PC,
-	PD,  /* 15 */
-	PD,
-	PD,
-	PD,
-	PD,
-	PD,
-	PD,
-	PD,  /* 24 */
+	PA, //  
+	PA, // 2
+	PF, // 3
+	PB, // 4
+	PB, // 5
+	PB, // 6
+	PB, // 7
+	PB, // 8
+	PB, // 9
+	PE, // 10
+	PC, // 11
+	PC, // 12
+	PC, // 13
+	PC, // 14
+	PC, // 15
+	PC, // 16
+	PC, // 17
+	PD, // 18
+	PD, // 19
+	PD, // 20
+	PD, // 21
+	PD, // 22
+	PD, // 23
+	PD, // 24
+	PD, // 25
 };
 
 const uint8_t PROGMEM digital_pin_to_bit_mask_PGM[] = {
@@ -289,15 +282,9 @@ const uint8_t PROGMEM digital_pin_to_timer_PGM[] = {
 	NOT_ON_TIMER,	// 3
 	NOT_ON_TIMER,	// 4
 	NOT_ON_TIMER,	// 5
-#ifdef SUPPORT_ALTERNATE_MAPPINGS
-	TIMER13,	// 6
-	TIMER12,	// 7
-	TIMER11,	// 8
-#else
 	NOT_ON_TIMER,	// 6
 	NOT_ON_TIMER,	// 7
 	NOT_ON_TIMER,	// 8
-#endif
 	NOT_ON_TIMER,	// 9
 	TIMER11,	// 10
 	TIMER12,	// 11
@@ -313,12 +300,21 @@ const uint8_t PROGMEM digital_pin_to_timer_PGM[] = {
 	TIMER21,	// 21
 	NOT_ON_TIMER,	// 22
 	NOT_ON_TIMER,	// 23
-#ifdef SUPPORT_ALTERNATE_MAPPINGS
-	TIMER14,	// 24
-#else
 	NOT_ON_TIMER,	//24
-#endif
 };
+
+
+const uint8_t digitalPinToAnalogChannelMap[] = {
+	12,		// A0	D2	PF4	Ain12
+	5,		// A1	D3	PB4	Ain5
+	4,		// A2	D4	PB3	Ain4
+	3,  	// A3   D5	PB2 Ain3
+	2,		// A4	D6	PB1	Ain2
+	1,		// A5	D7	PB0	Ain1
+	0		// A6	D8	PB0	Ain0
+};
+
+
 
 #endif
 
